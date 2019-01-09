@@ -1,30 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
-
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/throw';
-
+import { catchError } from 'rxjs/operators';
+import { Observable, throwError } from "rxjs";
 import { Product, Item } from '../models/product.interface';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 @Injectable()
 export class StockInventoryService {
-  constructor(
-    private http: Http
-  ) {}
+  
+  constructor(private http: HttpClient) {}
 
   getCartItems(): Observable<Item[]> {
+    console.log("getCartItems");
     return this.http
-      .get('/api/cart')
-      .map((response: Response) => response.json())
-      .catch((error: any) => Observable.throw(error.json()));
+      .get<Item[]>('api/cart')
+      .pipe(catchError(this.handleError));
   }
 
   getProducts(): Observable<Product[]> {
+    console.log("getProducts");
     return this.http
-      .get('/api/products')
-      .map((response: Response) => response.json())
-      .catch((error: any) => Observable.throw(error.json()));
+      .get<Product[]>('api/products')
+      .pipe(catchError(this.handleError));
   }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      console.error('An error occurred: ', error.error.message);
+    } else {
+      console.error('Backend returned code ', error.status, ', body was ', error.error );
+    }
+    return throwError("Something bad happened, please try again later");
+  }
+
 }
