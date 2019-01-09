@@ -6,7 +6,7 @@
     "noEmitHelpers": true,
     "pretty": true,
     "sourceMap": true,
-    "lib": ["es5", "dom"],
+    "lib": ["es2016", "dom"],
     "strictNullChecks": false
   },
   "exclude": [
