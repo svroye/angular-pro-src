@@ -1,7 +1,7 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 
 import { StockInventoryComponent } from './containers/stock-inventory/stock-inventory.component';
 
@@ -24,7 +24,7 @@ import { StockInventoryService } from './services/stock-inventory.service';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpClientModule
   ],
   exports: [
     StockInventoryComponent

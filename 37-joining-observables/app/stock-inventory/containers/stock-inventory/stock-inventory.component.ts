@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/forkJoin';
-
 import { StockInventoryService } from '../../services/stock-inventory.service';
 
 import { Product, Item } from '../../models/product.interface';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'stock-inventory',
@@ -60,27 +58,24 @@ export class StockInventoryComponent implements OnInit {
     stock: this.fb.array([])
   })
 
-  constructor(
-    private fb: FormBuilder,
-    private stockService: StockInventoryService
-  ) {}
+  constructor(private fb: FormBuilder, private stockService: StockInventoryService) {}
 
   ngOnInit() {
     const cart = this.stockService.getCartItems();
     const products = this.stockService.getProducts();
 
-    Observable
-      .forkJoin(cart, products)
-      .subscribe(([cart, products]: [Item[], Product[]]) => {
-        
-        const myMap = products
-          .map<[number, Product]>(product => [product.id, product]);
-        
+    // simultaneous call both API observables
+    forkJoin(cart, products)
+      // destructure the received data, which is an array of the cart and products observables
+      // additional type checking was also performed
+      .subscribe( ( [cart, products]: [Item[], Product[]]) => {
+        // map the products to a Map<id, product>
+        const myMap = products.map<[number, Product]>( product => [product.id, product] );
+        // new es2016 feature, make sure the lib in tsconfig is set correctly !
         this.productMap = new Map<number, Product>(myMap);
         this.products = products;
         cart.forEach(item => this.addStock(item));
       });
-
   }
 
   createStock(stock) {
