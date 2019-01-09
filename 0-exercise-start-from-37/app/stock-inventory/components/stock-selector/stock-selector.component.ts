@@ -17,13 +17,7 @@ import { Product } from '../../models/product.interface';
             {{ product.name }}
           </option>
         </select>
-        <input 
-          type="number"
-          step="10"
-          min="10"
-          max="1000"
-          formControlName="quantity">
-        <stock-counter [step]="10" [min]="10" [max]="100"></stock-counter>
+        <stock-counter [step]="10" [min]="10" [max]="100" formControlName="quantity"></stock-counter>
         <button 
           type="button"
           (click)="onAdd()">
@@ -45,10 +39,10 @@ export class StockSelectorComponent {
 
   onAdd() {
     this.added.emit(this.parent.get('selector').value);
-    // this.parent.get('selector').reset({
-    //   product_id: '',
-    //   quantity: 10
-    // });
+    this.parent.get('selector').reset({
+       product_id: '',
+       quantity: 10
+    });
     // this.parent.get('selector').patchValue({
     //   product_id: ''
     // });
