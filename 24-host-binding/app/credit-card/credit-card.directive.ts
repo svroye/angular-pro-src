@@ -8,6 +8,11 @@ export class CreditCardDirective {
   @HostBinding('style.border')
   border: string;
 
+  @HostBinding('class') classes = "jeje";
+
+  @HostBinding('class.activeNow') newClass = true;
+  @HostBinding('disabled') disabled = true;
+
   @HostListener('input', ['$event'])
   onKeyDown(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
@@ -30,4 +35,5 @@ export class CreditCardDirective {
     }
 
   }
+
 }
