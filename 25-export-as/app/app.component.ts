@@ -13,7 +13,8 @@ import { Component } from '@angular/core';
           credit-card>
       </label>
       <label 
-        tooltip="3 digits, back of your card"
+        [tooltip]="{ 'text' : '3 digits, back of your card', 'secondtext': 'yesyesyes'}"
+        anotherInput="This is the second input!!!"
         #myTooltip="tooltip">
         Enter your security code 
         <span

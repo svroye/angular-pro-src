@@ -9,16 +9,23 @@ export class TooltipDirective implements OnInit {
   visible = false;
 
   @Input()
-  set tooltip(value) {
-    this.tooltipElement.textContent = value;
+  anotherInput: string;
+
+  @Input()
+  set tooltip(value: {text, secondtext}) {
+    console.log(value);
+    console.log(value.secondtext);
+    this.tooltipElement.textContent = value.text;
   }
 
   hide() {
     this.tooltipElement.classList.remove('tooltip--active');
+    console.log(this.anotherInput);
   }
 
   show() {
     this.tooltipElement.classList.add('tooltip--active');
+    console.log(this.anotherInput);
   }
 
   constructor(
