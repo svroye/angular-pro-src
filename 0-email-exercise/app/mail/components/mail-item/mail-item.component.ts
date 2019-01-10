@@ -7,9 +7,19 @@ import { Mail } from '../../models/mail.interface';
   selector: 'mail-item',
   styleUrls: ['mail-item.component.scss'],
   template: `
-  <!-- routing from the the template -->
-  <!-- <a class="mail-item"
-      [routerLink]="['', { outlets: { pane: ['message', message.id] } } ]" routerLinkActive="active"> -->
+  <!-- Using routing from in the template -->
+   
+    <a class="mail-item" [routerLink]="['', { outlets: { pane: ['message', message.id] } } ]" routerLinkActive="active"> 
+      <h3>
+        {{ message.from }}
+        <span>{{ message.timestamp | date:'shortTime' }}</span>
+      </h3>
+      <p>{{ message.summary }}</p>
+    </a>
+    
+
+      <!-- using the API -->
+    <!--
     <a class="mail-item" (click)="navigateToMessage()">
       <h3>
         {{ message.from }}
@@ -17,6 +27,7 @@ import { Mail } from '../../models/mail.interface';
       </h3>
       <p>{{ message.summary }}</p>
     </a>
+    -->
   `
 })
 export class MailItemComponent {
