@@ -16,4 +16,8 @@ export class MailService {
         return this.http.get<Mail[]>('/api/messages', { params: searchParams });
     }
 
+    getMessage(id: string): Observable<Mail> {
+        return this.http.get<Mail>(`api/messages/${id}`);
+    }
+
 }
