@@ -10,9 +10,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
 export const ROUTES: Routes = [
-  { path: '', redirectTo: 'mail/(folder/inbox)', pathMatch: 'full' },
-  { path: 'dashboard', redirectTo: 'dashboard' },
-  { path: '**', redirectTo: 'mail/(folder/inbox)', pathMatch: 'full' }
+  { path: '**', redirectTo: 'mail/folder/inbox' }
 ];
 
 @NgModule({
