@@ -1,3 +1,4 @@
+import { AuthGuard } from './../auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -14,6 +15,7 @@ export const ROUTES: Routes = [
   {
     path: 'mail',
     component: MailAppComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'folder/:name',
