@@ -1,3 +1,4 @@
+import { MailViewGuard } from './components/mail-view/mail-view.guard';
 import { AuthGuard } from './../auth/auth.guard';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +17,7 @@ export const ROUTES: Routes = [
     path: 'mail',
     component: MailAppComponent,
     //canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+    //canActivateChild: [AuthGuard],
     children: [
       {
         path: 'folder/:name',
@@ -28,6 +29,7 @@ export const ROUTES: Routes = [
       {
         path: 'message/:id',
         component: MailViewComponent,
+        canDeactivate: [MailViewGuard],
         outlet: 'pane',
         resolve: {
           message: MailViewResolve
@@ -52,7 +54,8 @@ export const ROUTES: Routes = [
   providers: [
     MailFolderResolve,
     MailService,
-    MailViewResolve
+    MailViewResolve,
+    MailViewGuard
   ],
   exports: [
     MailAppComponent

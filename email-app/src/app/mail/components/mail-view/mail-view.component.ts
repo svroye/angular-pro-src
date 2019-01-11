@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Observable } from 'rxjs';
 import { Mail } from '../../models/mail.interface';
 import { pluck } from 'rxjs/operators';
@@ -26,19 +26,29 @@ import { pluck } from 'rxjs/operators';
     </div>
     `
 })
-export class MailViewComponent {
+export class MailViewComponent implements OnInit {
 
     reply: string = '';
+    hasUnsavedChanges = false;
     message: Observable<Mail> = this.route.data.pipe(pluck('message'));
 
     constructor(private route: ActivatedRoute){}
 
+    ngOnInit() {
+        // reset the reply parameter when we navigate away
+        this.route.params.subscribe( () => {
+            this.reply = '';
+            this.hasUnsavedChanges = false;
+        });
+    }
+
     updateReply(reply: string){
         this.reply = reply;
+        this.hasUnsavedChanges = true;
     }
 
     sendReply(){
         console.log("Message sent!");
-        console.log(this.reply);
+        this.hasUnsavedChanges = false;
     }
 }
