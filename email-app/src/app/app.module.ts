@@ -1,3 +1,5 @@
+import { AuthGuard } from './auth/auth.guard';
+import { AuthModule } from './auth/auth.module';
 import { MailModule } from './mail/mail.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -8,7 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
 export const ROUTES: Routes = [
-  { path: 'dashboard', data: { preload: true }, loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  // add preload: true to preload the module
+  { path: 'dashboard', canLoad: [AuthGuard], data: { preload: true }, loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: '**', redirectTo: 'mail/folder/inbox' }
 ];
 
@@ -28,6 +31,7 @@ export class CustomPreload implements PreloadingStrategy {
     BrowserModule,
     HttpClientModule,
     MailModule,
+    AuthModule,
     // for route tracing
     //RouterModule.forRoot(ROUTES, { enableTracing: true })
     // use the preloadingStrategy PreloadAllModules for preloading all modules
