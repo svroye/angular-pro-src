@@ -15,7 +15,8 @@ export const ROUTES: Routes = [
   {
     path: 'mail',
     component: MailAppComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     children: [
       {
         path: 'folder/:name',

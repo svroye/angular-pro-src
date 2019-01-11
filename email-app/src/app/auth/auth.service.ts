@@ -9,6 +9,7 @@ export class AuthService {
   checkPermissions() {
     return of(this.user.isAdmin);
   }
+  
   isLoggedIn() {
     return of(true);
   }
