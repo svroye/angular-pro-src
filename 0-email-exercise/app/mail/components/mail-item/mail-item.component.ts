@@ -9,7 +9,7 @@ import { Mail } from '../../models/mail.interface';
   template: `
   <!-- Using routing from in the template -->
    
-    <a class="mail-item" [routerLink]="['', { outlets: { pane: ['message', message.id] } } ]" routerLinkActive="active"> 
+    <a class="mail-item" [routerLink]="['/mail', { outlets: { pane: ['message', message.id] } } ]" routerLinkActive="active"> 
       <h3>
         {{ message.from }}
         <span>{{ message.timestamp | date:'shortTime' }}</span>
