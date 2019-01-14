@@ -8,6 +8,7 @@ import { StockBranchComponent } from '../../components/stock-branch/stock-branch
 import { StockProductsComponent } from '../../components/stock-products/stock-products.component';
 import { StockInventoryService } from '../../services/stock-inventory.service';
 import { of } from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
 
 
 class MockStockInventoryService {
@@ -31,15 +32,27 @@ describe('StockInventoryComponent', () => {
 
 
     beforeEach( () => {
+        // TestBed.configureTestingModule({
+        //     imports: [ ReactiveFormsModule ],
+        //     declarations: [ 
+        //         StockInventoryComponent, 
+        //         StockBranchComponent,
+        //         StockCounterComponent,
+        //         StockProductsComponent,
+        //         StockSelectorComponent
+        //     ],
+        //     providers: [
+        //         { provide: StockInventoryService, useClass: MockStockInventoryService }
+        //     ]
+        // });
+
+        // alternative to the above using NO_ERRORS_SCHEMA
         TestBed.configureTestingModule({
             imports: [ ReactiveFormsModule ],
             declarations: [ 
-                StockInventoryComponent, 
-                StockBranchComponent,
-                StockCounterComponent,
-                StockProductsComponent,
-                StockSelectorComponent
+                StockInventoryComponent
             ],
+            schemas: [NO_ERRORS_SCHEMA],
             providers: [
                 { provide: StockInventoryService, useClass: MockStockInventoryService }
             ]
