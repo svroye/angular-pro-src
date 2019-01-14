@@ -8,6 +8,7 @@ import { RouterModule, Routes, PreloadAllModules, PreloadingStrategy, Route } fr
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { FileSizePipe } from './testing/file-size.pipe';
 
 export const ROUTES: Routes = [
   // add preload: true to preload the module
@@ -25,7 +26,8 @@ export class CustomPreload implements PreloadingStrategy {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FileSizePipe
   ],
   imports: [
     BrowserModule,
