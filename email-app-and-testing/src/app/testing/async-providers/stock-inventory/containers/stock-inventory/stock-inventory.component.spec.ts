@@ -8,7 +8,7 @@ import { StockBranchComponent } from '../../components/stock-branch/stock-branch
 import { StockProductsComponent } from '../../components/stock-products/stock-products.component';
 import { StockInventoryService } from '../../services/stock-inventory.service';
 import { of } from 'rxjs';
-import { NO_ERRORS_SCHEMA } from '@angular/compiler/src/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 
 class MockStockInventoryService {
@@ -16,11 +16,13 @@ class MockStockInventoryService {
     getProducts() {
         return of( [ {id: 1, price: 10, name: 'Test'}, {id: 2, price: 100, name: 'Another Test'}] );
     }
+    
 
     getCartItems() {
         return of( [ {product_id: 1, quantity: 10}, {product_id: 2, quantity: 5}] );
     }
 }
+
 
 describe('StockInventoryComponent', () => {
 
