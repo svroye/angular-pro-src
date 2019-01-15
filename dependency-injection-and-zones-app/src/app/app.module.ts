@@ -24,7 +24,7 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   providers: [
-    { provide: 'api', useValue: '/api/pizzas'}
+    { provide: API_TOKEN, useValue: '/api/pizzas'}
   ]
 })
 export class AppModule {}
