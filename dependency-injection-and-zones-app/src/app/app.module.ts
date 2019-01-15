@@ -1,4 +1,4 @@
-import { FoodService } from './food.service';
+import { API_TOKEN } from './token';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,7 +24,7 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   providers: [
-    FoodService
+    { provide: 'api', useValue: '/api/pizzas'}
   ]
 })
 export class AppModule {}

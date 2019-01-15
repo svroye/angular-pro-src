@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class FoodService {
   
-  api = '/api/pizzas'
-  constructor( private http: HttpClient) {}
+  constructor( private http: HttpClient, @Inject('apiiiiii') private api: string) {}
   
   getFood(): Observable<any[]> {
     return this.http.get<any[]>(this.api);
   }
+
 }
