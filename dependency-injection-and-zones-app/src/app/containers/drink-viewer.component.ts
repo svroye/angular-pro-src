@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import { FoodService } from '../food.service';
@@ -8,10 +9,19 @@ interface Drink {
   price: number
 }
 
+export function DrinkFactory(http) {
+  return new FoodService(http, '/api/drinks');
+}
+
 @Component({
   selector: 'drink-viewer',
   providers: [
-    FoodService
+    { provide: FoodService, 
+      useFactory: DrinkFactory,
+      deps: [
+        HttpClient
+      ]
+    }
   ],
   template: `
     <div>
