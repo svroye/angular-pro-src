@@ -1,3 +1,4 @@
+import { FoodStoreModule } from './food-store/food-store.module';
 import { API_TOKEN } from './token';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,7 +19,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FoodStoreModule.forRoot( { 
+      storeId: 10292, 
+      storeToken: 'eca938c99a0e9ff91029dc' 
+    })
   ],
   bootstrap: [
     AppComponent
