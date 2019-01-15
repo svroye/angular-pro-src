@@ -20,4 +20,18 @@ export class FoodService {
     return this.http.get<any[]>(this.api);
   }
 
+  getPizzas(): Observable<any[]> {
+    return this.http.get<any[]>('/api/pizzas');
+  }
+
+  getSides(): Observable<any[]> {
+    return this.http.get<any[]>('/api/sides');
+  }
+
+  getDrinks(): Observable<any[]> {
+    return this.http.get<any[]>('/api/drinks');
+  }
+
+
+
 }

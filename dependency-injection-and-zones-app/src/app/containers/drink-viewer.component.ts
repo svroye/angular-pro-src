@@ -38,6 +38,6 @@ export class DrinkViewerComponent implements OnInit {
   constructor(private foodService: FoodService) {}
   
   ngOnInit() {
-    this.items$ = this.foodService.getFood();
+    this.items$ = this.foodService.getDrinks();
   }
 }
