@@ -1,3 +1,4 @@
+import { SongsModule } from './songs/songs.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -9,7 +10,8 @@ import { Store } from './store';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    SongsModule
   ],
   providers: [
     Store
