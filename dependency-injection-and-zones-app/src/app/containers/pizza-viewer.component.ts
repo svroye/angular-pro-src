@@ -1,8 +1,8 @@
+import { FoodUseExistingService } from './../food-useExisting.service';
+import { FoodFactoryService } from './../food-factory.service';
 import { Component, OnInit } from '@angular/core';
 
-import { FoodService } from '../food.service';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 interface Pizza {
   name: string,
@@ -10,16 +10,18 @@ interface Pizza {
 }
 
 export function PizzaFactory(http) {
-  return new FoodService(http, '/api/pizzas');
+  return new FoodFactoryService(http, '/api/pizzas');
+}
+
+export abstract class PizzaService {
+  getPizzas: () => Observable<Pizza[]>;
 }
 
 @Component({
   selector: 'pizza-viewer',
   providers: [
-    { provide: FoodService, 
-      useFactory: PizzaFactory,
-      deps: [ HttpClient ]
-    }
+    FoodUseExistingService,
+    { provide: PizzaService, useExisting: FoodUseExistingService }
   ],
   template: `
     <div>
@@ -33,7 +35,7 @@ export class PizzaViewerComponent implements OnInit {
   
   items$: Observable<Pizza[]>;
   
-  constructor(private foodService: FoodService) {}
+  constructor(private foodService: PizzaService) {}
   
   ngOnInit() {
     this.items$ = this.foodService.getPizzas();

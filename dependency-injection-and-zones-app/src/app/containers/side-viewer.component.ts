@@ -1,6 +1,7 @@
+import { FoodUseExistingService } from './../food-useExisting.service';
+import { FoodFactoryService } from './../food-factory.service';
 import { Component, OnInit } from '@angular/core';
 
-import { FoodService } from '../food.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,15 +11,19 @@ interface Side {
 }
 
 export function SideFactory(http) {
-  return new FoodService(http, '/api/sides');
+  return new FoodFactoryService(http, '/api/sides');
+}
+
+export abstract class SideService {
+  getSides: () => Observable<Side[]>;
 }
 
 @Component({
   selector: 'side-viewer',
   providers: [
-    { provide: FoodService, 
-      useFactory: SideFactory,
-      deps: [ HttpClient ]
+    FoodUseExistingService,
+    { provide: SideService, 
+      useExisting: FoodUseExistingService
     }
   ],
   template: `
@@ -32,7 +37,7 @@ export function SideFactory(http) {
 export class SideViewerComponent implements OnInit {
   
   items$: Observable<Side[]>;
-  constructor(private foodService: FoodService) {}
+  constructor(private foodService: SideService) {}
   
   ngOnInit() {
     this.items$ = this.foodService.getSides();

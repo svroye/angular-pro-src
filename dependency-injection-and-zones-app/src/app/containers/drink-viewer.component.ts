@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { FoodUseExistingService } from './../food-useExisting.service';
+import { FoodFactoryService } from './../food-factory.service';
 import { Component, OnInit } from '@angular/core';
-
-import { FoodService } from '../food.service';
 import { Observable } from 'rxjs';
 
 interface Drink {
@@ -10,19 +9,22 @@ interface Drink {
 }
 
 export function DrinkFactory(http) {
-  return new FoodService(http, '/api/drinks');
+  return new FoodFactoryService(http, '/api/drinks');
 }
+
+export abstract class DrinkService {
+  getDrinks: () => Observable<Drink[]>;
+}
+
 
 @Component({
   selector: 'drink-viewer',
   providers: [
-    { provide: FoodService, 
-      useFactory: DrinkFactory,
-      deps: [
-        HttpClient
-      ]
-    }
-  ],
+    FoodUseExistingService,
+  { provide: DrinkService, 
+    useExisting: FoodUseExistingService
+  }
+],
   template: `
     <div>
       <div *ngFor="let item of items$ | async">
@@ -35,7 +37,7 @@ export class DrinkViewerComponent implements OnInit {
   
   items$: Observable<Drink[]>;
 
-  constructor(private foodService: FoodService) {}
+  constructor(private foodService: DrinkService) {}
   
   ngOnInit() {
     this.items$ = this.foodService.getDrinks();
