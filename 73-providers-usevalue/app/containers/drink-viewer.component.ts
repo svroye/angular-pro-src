@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-
-import { Observable } from 'rxjs/Observable';
 
 import { FoodService } from '../food.service';
+import { Observable } from 'rxjs';
 
 interface Drink {
   name: string,
@@ -24,8 +22,11 @@ interface Drink {
   `
 })
 export class DrinkViewerComponent implements OnInit {
+  
   items$: Observable<Drink[]>;
+
   constructor(private foodService: FoodService) {}
+  
   ngOnInit() {
     this.items$ = this.foodService.getFood();
   }
