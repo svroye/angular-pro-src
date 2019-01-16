@@ -1,3 +1,7 @@
 <div class="songs">
-  Listened!
+  <div *ngFor="let song of listened$ | async">
+    {{ song.artist }}
+    {{ song.track }}
+    
+  </div>
 </div>

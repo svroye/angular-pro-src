@@ -1,16 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '../../../store';
+import { SongsService } from '../../services/songs.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'songs-playlist',
-  templateUrl: './songs-playlist.component.html',
-  styleUrls: ['./songs-playlist.component.css']
+  templateUrl: './songs-playlist.component.html'
 })
-export class SongsPlaylistComponent implements OnInit {
+export class SongsPlaylistComponent implements OnInit, OnDestroy {
 
-  constructor(private store: Store) { }
+  playlist$: Observable<any[]>;
+  subscription: Subscription;
+
+  constructor(private store: Store, private songsService: SongsService) { }
 
   ngOnInit() {
+    this.playlist$ = this.store.select('playlist');
+    this.subscription = this.songsService.getPlaylist$.subscribe();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
