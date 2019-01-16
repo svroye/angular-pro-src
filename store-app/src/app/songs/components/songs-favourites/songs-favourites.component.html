@@ -1,7 +1,3 @@
 <div class="songs">
-  <div *ngFor="let song of favourites$ | async">
-    {{ song.artist }}
-    {{ song.track }}
-    
-  </div>
+  <songs-list [list]="favourites$ | async" (toggle)="onToggle($event)">Favourites</songs-list>
 </div>

@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "store-app"
+  "defaultProject": "store-app",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }

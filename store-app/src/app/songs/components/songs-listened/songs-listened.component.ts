@@ -23,4 +23,8 @@ export class SongsListenedComponent implements OnInit {
       );
   }
 
+  onToggle(event) {
+    this.songsService.toggle(event);
+  }
+
 }
